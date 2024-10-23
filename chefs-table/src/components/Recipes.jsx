@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import Recipe from "./Recipe";
 
-const Recipes = () => {
+const Recipes = ({ addRecipeQueue }) => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Recipes = () => {
     <div className="md:w-2/3">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {recipes.map((recipe) => (
-          <div key={recipe.recipe_id} className="card bg-base-100 shadow-xl">
+          <div key={recipe.recipe_id} className="card bg-base-100 border-2">
             <figure className="px-8 pt-6">
               <img
                 className="w-full  md:h-52 rounded-xl"
@@ -23,7 +23,7 @@ const Recipes = () => {
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title text-xl text-gray-800 font-medium">
+              <h2 className="card-title text-2xl text-gray-800 font-semibold">
                 {recipe.recipe_name}
               </h2>
               <p className="text-gray-600 text-base">
@@ -39,8 +39,24 @@ const Recipes = () => {
                   </li>
                 ))}
               </ul>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
+
+              <div className="flex gap-16 py-2">
+                <div className="flex items-center gap-2">
+                  <i className="fa-regular fa-clock text-2xl"></i>
+                  <p>{recipe.preparing_time}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="text-2xl fa-solid fa-fire-flame-curved"></i>
+                  <p>{recipe.calories}</p>
+                </div>
+              </div>
+              <div className="card-actions">
+                <button
+                  onClick={() => addRecipeQueue(recipe)}
+                  className="btn bg-green-400 rounded-full px-8 text-xl text-gray-800 mt-6 font-medium"
+                >
+                  Want To Cook
+                </button>
               </div>
             </div>
           </div>
